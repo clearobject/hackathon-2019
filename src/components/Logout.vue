@@ -1,27 +1,24 @@
-<template />
+<template>
+  <div />
+</template>
 <script>
+import router from '@/router/index.js';
 import firebase from 'firebase';
 
 export default {
 	name: 'Logout',
 	data: () => ({}),
-	methods: {
-		login() {
-			firebase
-				.auth()
-				.signOut()
-				.then(() => {
-					this.$store.state.uid = null;
-					this.$store.state.age = null;
-					this.$store.state.department = null;
-					this.$store.state.gender = null;
-					this.$store.stat.yearsOfService = null;
-					this.$store.state.zipCode = null;
-				})
-				.catch(function(error) {
-					console.log(error);
-				});
-		},
+	mounted() {
+		firebase
+			.auth()
+			.signOut()
+			.then(() => {
+				console.log('Logged out and am redirecting');
+				router.push({ name: 'Home' });
+			})
+			.catch((error) => {
+				console.log(error);
+			});
 	},
 };
 </script>

@@ -16,6 +16,7 @@ export const store = new Vuex.Store({
 			state.userId = userId;
 		},
 		unSetUser: (state) => {
+			console.log('Unsetting user');
 			state.userId = undefined;
 			state.userData = undefined;
 		},

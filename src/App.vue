@@ -38,6 +38,7 @@
       <v-toolbar-title>{{ title }}</v-toolbar-title>
       <div class="flex-grow-1" />
       <v-btn
+        v-if="!isLoggedIn"
         color="accent"
         :to="{ name: 'Login' }"
         class="mx-4"
@@ -55,6 +56,16 @@
         <v-icon :style="item.style">
           {{ item.icon }}
         </v-icon>
+      </v-btn>
+      <v-btn
+        v-if="isLoggedIn"
+        color="accent"
+        :to="{ name: 'Logout' }"
+        class="mx-4"
+      >
+        <v-icon center>
+          exit_to_app
+        </v-icon>&nbsp;&nbsp;Logout
       </v-btn>
     </v-app-bar>
 
@@ -87,7 +98,7 @@
 
 <script>
 import firebase from 'firebase';
-import { mapActions } from 'vuex';
+import { mapActions, mapGetters } from 'vuex';
 
 export default {
 	name: 'App',
@@ -152,6 +163,7 @@ export default {
 	},
 	methods: {
 		...mapActions(['setUserAction', 'unSetUserAction', 'setUserDataAction']),
+		...mapGetters(['isLoggedIn']),
 	},
 
 
