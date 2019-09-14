@@ -5,7 +5,13 @@ Vue.use(Vuex);
 
 export const store = new Vuex.Store({
 	state: {
-		title: 'Beacon of Hope',
+		title: 'Beacon',
+		uid: '',
+		age: '',
+		department: '',
+		gender: '',
+		yearsOfService: '',
+		zipCode: '',
 	},
 	mutations: {},
 	actions: {},

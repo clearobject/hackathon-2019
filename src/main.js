@@ -3,11 +3,11 @@ import firebase from 'firebase';
 import App from './App.vue';
 import vuetify from './plugins/vuetify';
 import router from './router';
-import Vuetify from 'vuetify';
 import 'vuetify/dist/vuetify.min.css';
 import { store } from './store';
 
-// TODO: Replace the following with your app's Firebase project configuration
+import VueChatScroll from 'vue-chat-scroll';
+
 const firebaseConfig = {
 	apiKey: 'AIzaSyCBmRdmokToa2AyEs26b9qvoVWUnGj2gh8',
 	authDomain: 'clearobject-hackathon2019.firebaseapp.com',
@@ -18,10 +18,12 @@ const firebaseConfig = {
 	appId: '1:147779918580:web:0ec375615b7b189562dca1',
 };
 
-// Initialize Firebase
-firebase.initializeApp(firebaseConfig);
+const firebaseApp = firebase.initializeApp(firebaseConfig);
+export default firebaseApp.firestore();
 
 Vue.config.productionTip = false;
+
+Vue.use(VueChatScroll);
 
 new Vue({
 	vuetify,
