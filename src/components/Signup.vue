@@ -76,6 +76,74 @@
                 label="Gender"
               />
             </v-flex>
+            <div class="font-italic font-weight-medium">
+              What's been on your mind?
+            </div>
+            <div class="font-italic font-weight-medium">
+              What can you help others with?
+            </div>
+            <v-flex>
+              <v-checkbox
+                v-model="experiences"
+                label="Child Crimes"
+                value="Child Crimes"
+              />
+              <v-checkbox
+                v-model="experiences"
+                label="Suicide Bystander"
+                value="Suicide Bystander"
+              />
+              <v-checkbox
+                v-model="experiences"
+                label="Sex Crimes"
+                value="Sex Crimes"
+              />
+              <v-checkbox
+                v-model="experiences"
+                label="Motor Vehicle Accidents"
+                value="Motor Vehicle Accidents"
+              />
+              <v-checkbox
+                v-model="experiences"
+                label="Death of a Loved One"
+                value="Death of a Loved One"
+              />
+              <v-checkbox
+                v-model="experiences"
+                label="Divorce"
+                value="Divorce"
+              />
+              <v-checkbox
+                v-model="experiences"
+                label="Death of a Coworker"
+                value="Death of a Coworker"
+              />
+              <v-checkbox
+                v-model="experiences"
+                label="Retiree"
+                value="Retiree"
+              />
+              <v-checkbox
+                v-model="experiences"
+                label="Physical Disability"
+                value="Physical Disability"
+              />
+              <v-checkbox
+                v-model="experiences"
+                label="Intellectual Impairment"
+                value="Intellectual Impairment"
+              />
+              <v-checkbox
+                v-model="experiences"
+                label="Health Decline"
+                value="Health Decline"
+              />
+              <v-checkbox
+                v-model="experiences"
+                label="Substance Abuse"
+                value="Substance Abuse"
+              />
+            </v-flex>
             <v-flex>
               <v-text-field
                 v-model="zipCode"
@@ -116,13 +184,14 @@ export default {
 		age: ['20-30', '30-40', '40-50', '50+'],
 		genderSelect: '',
 		gender: ['Male', 'Female', 'Other / Prefer not to say'],
+		experiences: [],
 		zipCode: undefined,
 		rules: {
 			required: value => !!value || 'Required.',
 			min: v => v.length >= 6 || 'Min 6 characters',
 			emailMatch: () => 'The email and password you entered don\'t match',
 			numberOnly: v =>
-				/^([0-9\-]*$)|(undefined)/g.test(v) || 'Zipcode can only be numbers',
+				/^([0-9]*$)|(undefined)/g.test(v) || 'Zipcode can only be numbers',
 		},
 		showPw: false,
 		errorText: '',
@@ -140,6 +209,7 @@ export default {
 						yearsOfService: this.yearsOfServiceSelect,
 						age: this.ageSelect,
 						gender: this.genderSelect,
+						experiences: this.experiences,
 					};
 					if (this.zipCode) {
 						dataSet['zipCode'] = this.zipCode;

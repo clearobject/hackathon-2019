@@ -1,6 +1,11 @@
 <template>
   <div v-if="isLoggedIn">
-    I'm logged in
+    <v-layout
+      column
+      wrap
+    >
+      <UserList />
+    </v-layout>
   </div>
   <v-layout
     v-else
@@ -23,8 +28,14 @@
 <script>
 import router from '@/router/index.js';
 import { mapGetters } from 'vuex';
+
+import UserList from '@/components/userInfo/UserList';
+
 export default {
 	name: 'Home',
+	components: {
+		UserList,
+	},
 	computed: mapGetters(['isLoggedIn']),
 	methods: {
 		redirectToLogin() {

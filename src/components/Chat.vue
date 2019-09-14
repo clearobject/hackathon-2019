@@ -39,7 +39,13 @@ export default {
 	components: {
 		CreateMessage,
 	},
-	props: ['name'],
+	props: {
+		name: {
+			name: 'name',
+			type: String,
+			default: '',
+		},
+	},
 	data() {
 		return {
 			messages: [],

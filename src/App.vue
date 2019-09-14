@@ -113,7 +113,7 @@ export default {
 		sideBarItems: [
 			{
 				title: 'Home',
-				path: '/home',
+				path: '/',
 				icon: 'home',
 				style: 'font-size: 26pt;',
 			},
@@ -137,17 +137,27 @@ export default {
 	mounted() {
 		firebase.auth().onAuthStateChanged((user) => {
 			if (user) {
-				console.log(user.uid); // this returns my user object
 				this.setUserAction(user.uid);
+				const docRef = firebase.firestore().collection('users').doc(user.uid);
+				docRef.get().then((doc) => {
+					if (!doc.exists) {
+						throw new Error('Could not retrieve user information');
+					} else {
+						this.setUserDataAction(doc.data());
+					}
+				}).catch((err) => {
+					console.log('Error getting document', err);
+				});
+
 			} else {
 				this.unSetUserAction();
 				// No user is signed in.
 			}
 		});
-  },
-  methods: {
-    ...mapActions(['setUserAction', 'unSetUserAction'])
-  }
+	},
+	methods: {
+		...mapActions(['setUserAction', 'unSetUserAction', 'setUserDataAction']),
+	},
 };
 </script>
 

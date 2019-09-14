@@ -92,22 +92,12 @@ export default {
 		});
 	},
 	methods: {
-    ...mapActions(['setUserAction']),
+		...mapActions(['setUserAction', 'setUserDataAction']),
 		login() {
 			firebase
 				.auth()
 				.signInWithEmailAndPassword(this.email, this.password)
-				.then(async (credentials) => {
-          const docRef = firebase.firestore().collection('users').doc(credentials.user.uid);
-					await docRef.get().then((doc) => {
-            if (!doc.exists) {
-              throw new Error('Could not retrieve user information');
-            } else {
-              this.setUserDataAction(doc.data());
-            }
-          }).catch((err) => {
-            console.log('Error getting document', err);
-          });
+				.then(async () => {
 					router.push({ name: 'Home' });
 				})
 				.catch(error => {
