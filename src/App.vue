@@ -24,8 +24,6 @@
           </v-icon>
         </v-btn>
       </v-col>
-      </v-btn>
-      </v-col></v-btn>
     </v-navigation-drawer>
 
     <v-app-bar
@@ -41,7 +39,7 @@
       <div class="flex-grow-1" />
       <v-btn
         color="accent"
-        :to="{ path: '/login', component: Login }"
+        :to="{ name: 'Login' }"
         class="mx-4"
       >
         <v-icon center>
@@ -57,7 +55,6 @@
         <v-icon :style="item.style">
           {{ item.icon }}
         </v-icon>
-      </v-btn>
       </v-btn>
     </v-app-bar>
 

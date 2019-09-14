@@ -6,9 +6,9 @@ import Router from 'vue-router';
 const routerOptions = [
 	{ path: '/', component: 'Home', name: 'Home' },
 	{
-	  path: '/signin',
-	  component: 'Signin',
-	  name: 'Signin'
+	  path: '/login',
+	  component: 'Login',
+	  name: 'Login'
 	},
 	{
 	  path: '/register',
