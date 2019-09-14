@@ -46,7 +46,7 @@
       </v-toolbar-title>
       <div class="flex-grow-1" />
       <v-btn
-        v-if="!isLoggedIn"
+        v-if="!isLoggedIn()"
         color="accent"
         :to="{ name: 'Login' }"
         class="mx-4"
@@ -66,7 +66,7 @@
         </v-icon>
       </v-btn>
       <v-btn
-        v-if="isLoggedIn"
+        v-if="isLoggedIn()"
         color="accent"
         :to="{ name: 'Logout' }"
         class="mx-4"
@@ -148,6 +148,7 @@ export default {
 		},
 	},
 	mounted() {
+		console.log(this.isLoggedIn());
 		firebase.auth().onAuthStateChanged((user) => {
 			console.log('I\'m in here', user);
 			if (user) {

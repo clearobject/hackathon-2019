@@ -1,23 +1,24 @@
 <template>
   <v-card>
     <v-card-title>{{ user.username }}</v-card-title>
+    <v-card-actions><v-btn>Start chat</v-btn></v-card-actions>
   </v-card>
 </template>
 
 <script>
 export default {
-  name: "UserItem",
-  props: {
-    user: {
-      type: Object,
-      default() {
-        return { username: "hello", uid: 1234 };
-      },
-      name: "user"
-    }
-  },
-  data() {
-    return {};
-  }
+	name: 'UserItem',
+	props: {
+		user: {
+			type: Object,
+			default() {
+				return { username: 'hello', uid: 1234 };
+			},
+			name: 'user',
+		},
+	},
+	data() {
+		return {};
+	},
 };
 </script>

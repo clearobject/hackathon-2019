@@ -1,5 +1,5 @@
 <template>
-  <div v-if="isLoggedIn">
+  <div v-if="isLoggedIn()">
     <v-layout
       column
       wrap
@@ -36,10 +36,14 @@ export default {
 	components: {
 		UserList,
 	},
-	computed: mapGetters(['isLoggedIn']),
+	mounted() {
+		console.log(this.isLoggedIn());
+	},
 	methods: {
+		...mapGetters(['isLoggedIn']),
 		redirectToLogin() {
-			router.push('Signin');
+			console.log(this.isLoggedIn());
+			router.push('Login');
 		},
 	},
 };
