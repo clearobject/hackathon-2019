@@ -38,7 +38,9 @@
       <v-container fluid>
         <v-row align="center" justify="center">
           <v-col cols="10">
-            <router-view />
+            <transition name="fade" mode="out-in">
+              <router-view />
+            </transition>
           </v-col>
         </v-row>
       </v-container>
@@ -94,6 +96,9 @@ export default {
     title() {
       return this.$store.state.title;
     }
+  },
+  created() {
+    window.addEventListener("load", () => (this.begin = true));
   }
 };
 </script>
@@ -105,5 +110,17 @@ export default {
   display: none;
   color: #0000;
   background-color: #0000;
+}
+
+.fade-enter-active,
+.fade-leave-active {
+  transition-duration: 0.3s;
+  transition-property: opacity;
+  transition-timing-function: ease;
+}
+
+.fade-enter,
+.fade-leave-active {
+  opacity: 0;
 }
 </style>
