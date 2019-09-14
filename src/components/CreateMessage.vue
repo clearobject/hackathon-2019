@@ -42,6 +42,7 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
 import firebase from 'firebase';
 
 export default {
