@@ -39,11 +39,16 @@
 </template>
 
 <script>
-import fb from '@/main';
+import firebase from 'firebase';
 
 export default {
 	name: 'CreateMessage',
-	// props: ["name"],
+	props: {
+		chatRoomId: {
+			type: String,
+			default: '',
+		},
+	},
 	data() {
 		return {
 			newMessage: null,
@@ -54,9 +59,9 @@ export default {
 	methods: {
 		createMessage() {
 			if (this.newMessage) {
-				fb.collection('messages')
-					.add({
-						uid: this.$store.getters.uid,
+				firebase.firestore().collection('chatrooms').doc(this.chatRoomId)
+					.collection('messages').add({
+						uid: firebase.auth().currentUser.uid,
 						message: this.newMessage,
 						timestamp: Date.now(),
 					})

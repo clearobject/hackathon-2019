@@ -42,6 +42,7 @@ export const store = new Vuex.Store({
 	},
 	getters: {
 		isLoggedIn: (state) => !!state.userId,
+		getUserData: (state) => state.userData,
 	},
 	plugins: [createPersistedState()],
 });

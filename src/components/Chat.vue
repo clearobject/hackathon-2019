@@ -23,7 +23,7 @@
         </div>
       </div>
       <div class="card-action">
-        <CreateMessage :name="name" />
+        <CreateMessage :chat-room-id="chatRoomId" />
       </div>
     </v-card>
   </div>
@@ -31,7 +31,7 @@
 
 <script>
 import CreateMessage from '@/components/CreateMessage';
-import fb from '@/main';
+import firebase from 'firebase';
 import moment from 'moment';
 
 export default {
@@ -39,7 +39,12 @@ export default {
 	components: {
 		CreateMessage,
 	},
-	props: ['name'],
+	props: {
+		chatRoomId: {
+			type: String,
+			default: '',
+		},
+	},
 	data() {
 		return {
 			messages: [],
@@ -51,9 +56,10 @@ export default {
 		},
 	},
 	created() {
-		const ref = fb.collection('messages').orderBy('timestamp');
+		console.log(this.chatRoomId);
+		const ref = firebase.firestore().collection('chatrooms').doc(this.chatRoomId).collection('messages').orderBy('timestamp');
 		ref.onSnapshot(snapshot => {
-			snapshot.docChanges().forEach(change => {
+			snapshot.docChanges().forEach((change) => {
 				if (change.type == 'added') {
 					const doc = change.doc;
 					this.messages.push({
