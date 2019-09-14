@@ -1,41 +1,40 @@
 <template>
-  <v-container>
-    <v-layout
-      text-center
-      wrap
-    >
-      <v-flex md12>
-        <v-text-field
-          v-model="email"
-          :rules="[rules.required]"
-          name="input-password"
-          label="Email"
-        />
-        <v-text-field
-          v-model="password"
-          :append-icon="showPw ? 'visibility' : 'visibility_off'"
-          :rules="[rules.required, rules.min]"
-          :type="showPw ? 'text' : 'password'"
-          name="input-password"
-          label="Password"
-          hint="At least 6 characters"
-          @click:append="showPw = !showPw"
-        />
-        <div
-          v-if="errorText != undefined"
-          class="red--text"
-        >
-          {{ errorText }}
-        </div>
-        <v-btn
-          text
-          @click="login()"
-        >
-          Login
-        </v-btn>
-      </v-flex>
-    </v-layout>
-  </v-container>
+  <v-layout
+    text-center
+    wrap
+    fill-height
+  >
+    <v-flex md12>
+      <v-text-field
+        v-model="email"
+        :rules="[rules.required]"
+        name="input-password"
+        label="Email"
+      />
+      <v-text-field
+        v-model="password"
+        :append-icon="showPw ? 'visibility' : 'visibility_off'"
+        :rules="[rules.required, rules.min]"
+        :type="showPw ? 'text' : 'password'"
+        name="input-password"
+        label="Password"
+        hint="At least 6 characters"
+        @click:append="showPw = !showPw"
+      />
+      <div
+        v-if="errorText != undefined"
+        class="red--text"
+      >
+        {{ errorText }}
+      </div>
+      <v-btn
+        text
+        @click="login()"
+      >
+        Login
+      </v-btn>
+    </v-flex>
+  </v-layout>
 </template>
 
 <script>

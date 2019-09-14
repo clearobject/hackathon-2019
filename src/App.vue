@@ -11,27 +11,48 @@
       overflow
     >
       <v-col style="text-align: center;">
-        <v-btn v-for="item in sideBarItems" :key="item.title" icon :to="item.path">
-          <v-icon :style="item.style">{{ item.icon }}</v-icon>
+        <v-btn
+          v-for="item in sideBarItems"
+          :key="item.title"
+          icon
+          :to="item.path"
+        >
+          <v-icon :style="item.style">
+            {{ item.icon }}
+          </v-icon>
         </v-btn>
       </v-col>
     </v-navigation-drawer>
 
-    <v-app-bar :clipped-left="primaryDrawer.clipped" app color="primary">
+    <v-app-bar
+      :clipped-left="primaryDrawer.clipped"
+      app
+      color="primary"
+    >
       <v-app-bar-nav-icon
         v-if="primaryDrawer.type !== 'permanent'"
         @click.stop="primaryDrawer.model = !primaryDrawer.model"
-      ></v-app-bar-nav-icon>
+      />
       <v-toolbar-title>{{ title }}</v-toolbar-title>
-      <div class="flex-grow-1"></div>
-      <v-btn v-for="item in appBarItems" :key="item.title" icon :to="item.path">
-        <v-icon :style="item.style">{{ item.icon }}</v-icon>
+      <div class="flex-grow-1" />
+      <v-btn
+        v-for="item in appBarItems"
+        :key="item.title"
+        icon
+        :to="item.path"
+      >
+        <v-icon :style="item.style">
+          {{ item.icon }}
+        </v-icon>
       </v-btn>
     </v-app-bar>
 
     <v-content>
       <v-container fluid>
-        <v-row align="center" justify="center">
+        <v-row
+          align="center"
+          justify="center"
+        >
           <v-col cols="10">
             <router-view />
           </v-col>
@@ -39,7 +60,10 @@
       </v-container>
     </v-content>
 
-    <v-footer :inset="footer.inset" app>
+    <v-footer
+      :inset="footer.inset"
+      app
+    >
       <span class="px-4">&copy; ClearObject {{ new Date().getFullYear() }}</span>
     </v-footer>
   </v-app>
@@ -47,60 +71,60 @@
 
 <script>
 export default {
-  data: () => ({
-    primaryDrawer: {
-      model: null,
-      clipped: true,
-      floating: false,
-      mini: true
-    },
-    footer: {
-      inset: false
-    },
-    appBarItems: [
-      {
-        title: "Sign Up",
-        path: "/signup",
-        icon: "face",
-        style: "font-size: 22pt;"
-      },
-      {
-        title: "Sign In",
-        path: "/signin",
-        icon: "lock_open",
-        style: "font-size: 22pt;"
-      },
-      {
-        title: "Settings",
-        path: "/settings",
-        icon: "more_vert",
-        style: "font-size: 22pt;"
-      }
-    ],
-    sideBarItems: [
-      {
-        title: "Home",
-        path: "/home",
-        icon: "home",
-        style: "font-size: 26pt; margin: 64px auto;"
-      },
-      {
-        title: "Chat",
-        path: "/chat",
-        icon: "chat",
-        style: "font-size: 26pt; margin: 64px auto;"
-      }
-    ],
-    elevateOnScroll: false,
-    hideOnScroll: false,
-    color: "primary",
-    colors: ["primary", "accent", "warning lighten-2", "teal", "orange"]
-  }),
-  computed: {
-    title() {
-      return this.$store.state.title;
-    }
-  }
+	data: () => ({
+		primaryDrawer: {
+			model: null,
+			clipped: true,
+			floating: false,
+			mini: true,
+		},
+		footer: {
+			inset: false,
+		},
+		appBarItems: [
+			{
+				title: 'Sign Up',
+				path: '/signup',
+				icon: 'face',
+				style: 'font-size: 22pt;',
+			},
+			{
+				title: 'Sign In',
+				path: '/signin',
+				icon: 'lock_open',
+				style: 'font-size: 22pt;',
+			},
+			{
+				title: 'Settings',
+				path: '/settings',
+				icon: 'more_vert',
+				style: 'font-size: 22pt;',
+			},
+		],
+		sideBarItems: [
+			{
+				title: 'Home',
+				path: '/home',
+				icon: 'home',
+				style: 'font-size: 26pt; margin: 64px auto;',
+			},
+			{
+				title: 'Chat',
+				path: '/chat',
+				icon: 'chat',
+				style: 'font-size: 26pt; margin: 64px auto;',
+			},
+		],
+		elevateOnScroll: false,
+		hideOnScroll: false,
+		color: 'primary',
+		colors: ['primary', 'accent', 'warning lighten-2', 'teal', 'orange'],
+	}),
+	computed: {
+		title() {
+			return this.$store.state.title;
+		},
+	},
 };
 </script>
 
