@@ -65,7 +65,12 @@
           justify="center"
         >
           <v-col cols="10">
-            <router-view />
+            <transition
+              name="fade"
+              mode="out-in"
+            >
+              <router-view />
+            </transition>
           </v-col>
         </v-row>
       </v-container>
@@ -103,12 +108,6 @@ export default {
 				icon: 'account_circle',
 				style: 'font-size: 22pt',
 			},
-			{
-				title: 'Settings',
-				path: '/settings',
-				icon: 'more_vert',
-				style: 'font-size: 22pt;',
-			},
 		],
 		sideBarItems: [
 			{
@@ -131,6 +130,7 @@ export default {
 	},
 	mounted() {
 		firebase.auth().onAuthStateChanged((user) => {
+			console.log('I\'m in here', user);
 			if (user) {
 				this.setUserAction(user.uid);
 				const docRef = firebase.firestore().collection('users').doc(user.uid);
@@ -165,5 +165,16 @@ export default {
   display: none;
   color: #0000;
   background-color: #0000;
+}
+
+.fade-enter-active,
+.fade-leave-active {
+  transition-duration: 0.3s;
+  transition-property: opacity;
+  transition-timing-function: ease;
+}
+.fade-enter,
+.fade-leave-active {
+  opacity: 0;
 }
 </style>

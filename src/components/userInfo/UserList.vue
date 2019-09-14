@@ -34,7 +34,6 @@ export default {
 					const docData = doc.data();
 					docData.uid = doc.id;
 					this.users.push(docData);
-					console.log(this.users);
 				});
 			}).catch((error) => {
 				console.log('Encountered an error');

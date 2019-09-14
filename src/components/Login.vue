@@ -60,6 +60,13 @@
               Sign In
             </v-btn>
           </v-flex>
+          <v-flex class="pt-7">
+            Don't have an account? <router-link
+              :to="{name: 'Register'}"
+            >
+              Create one here.
+            </router-link>
+          </v-flex>
         </v-layout>
       </v-flex>
     </v-layout>
@@ -98,6 +105,7 @@ export default {
 				.auth()
 				.signInWithEmailAndPassword(this.email, this.password)
 				.then(async () => {
+					console.log('I shouldn\'t be here');
 					router.push({ name: 'Home' });
 				})
 				.catch(error => {

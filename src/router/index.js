@@ -21,11 +21,6 @@ const routerOptions = [
 	  name: 'Logout'
 	},
 	{
-	  path: '/settings',
-	  component: 'Settings',
-	  name: 'Settings'
-	},
-	{
 		path: '/chat',
 		component: 'Chat',
 		name: 'Chat',
