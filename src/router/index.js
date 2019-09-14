@@ -4,12 +4,27 @@ import Vue from 'vue';
 import Router from 'vue-router';
 
 const routerOptions = [
-	{ path: '/', component: 'Home' },
-	{ path: '/signin', component: 'Signin' },
-	{ path: '/signup', component: 'Signup' },
-	{ path: '/signout', component: 'Signout' },
-	{ path: '/settings', component: 'Settings' },
-	{ path: '/home', component: 'Home' },
+	{ path: '/', component: 'Home', name: 'Home' },
+	{
+	  path: '/signin',
+	  component: 'Signin',
+	  name: 'Signin'
+	},
+	{
+	  path: '/signup',
+	  component: 'Signup',
+	  name: 'Signup'
+	},
+	{
+	  path: '/signout',
+	  component: 'Signout',
+	  name: 'Signout'
+	},
+	{
+	  path: '/settings',
+	  component: 'Settings',
+	  name: 'Settings'
+	},
 	{
 		path: '/chat',
 		component: 'Chat',

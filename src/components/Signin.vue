@@ -1,13 +1,32 @@
 <template>
   <v-container fluid>
-    <v-layout row wrap>
-      <v-flex xs12 class="text-xs-center" mt-5 style="text-align: center;">
+    <v-layout
+      row
+      wrap
+    >
+      <v-flex
+        xs12
+        class="text-xs-center"
+        mt-5
+        style="text-align: center;"
+      >
         <h1>Sign In</h1>
       </v-flex>
-      <v-flex xs12 sm6 offset-sm3 mt-3>
+      <v-flex
+        xs12
+        sm6
+        offset-sm3
+        mt-3
+      >
         <v-layout column>
           <v-flex>
-            <v-text-field v-model="email" name="email" label="Email" type="email" required />
+            <v-text-field
+              v-model="email"
+              name="email"
+              label="Email"
+              type="email"
+              required
+            />
           </v-flex>
           <v-flex>
             <v-text-field
@@ -22,10 +41,24 @@
             />
           </v-flex>
           <v-flex sm-3>
-            <div v-show="errorText != undefined" class="red--text">{{ errorText }}</div>
+            <div
+              v-show="errorText != undefined"
+              class="red--text"
+            >
+              {{ errorText }}
+            </div>
           </v-flex>
-          <v-flex class="text-xs-center" mt-5 style="margin: auto;">
-            <v-btn color="primary" type="submit">Sign In</v-btn>
+          <v-flex
+            class="text-xs-center"
+            mt-5
+            style="margin: auto;"
+          >
+            <v-btn
+              color="primary"
+              type="submit"
+            >
+              Sign In
+            </v-btn>
           </v-flex>
         </v-layout>
       </v-flex>
@@ -34,50 +67,58 @@
 </template>
 
 <script>
-import firebase from "firebase";
+import firebase from 'firebase';
+import { mapActions } from 'vuex';
+import router from '@/router/index.js';
 
 export default {
-  name: "Signin",
-  data: () => ({
-    email: "",
-    password: "",
-    rules: {
-      required: value => !!value || "Required.",
-      min: v => v.length >= 6 || "Min 6 characters",
-      emailMatch: () => "The email and password you entered don't match"
-    },
-    showPw: false,
-    errorText: ""
-  }),
-  mounted() {
-    window.addEventListener("keyup", event => {
-      if (event.keyCode === 13) {
-        this.login();
-      }
-    });
-  },
-  methods: {
-    login() {
-      firebase
-        .auth()
-        .signInWithEmailAndPassword(this.email, this.password)
-        .then(credentials => {
-          this.$store.state.uid = credentials.user.uid;
-          this.$store.state.age = credentials.user.age;
-          this.$store.state.department = credentials.user.department;
-          this.$store.state.gender = credentials.user.gender;
-          this.$store.stat.yearsOfService = credentials.user.yearsOfService;
-          this.$store.state.zipCode = credentials.user.zipCode;
-        })
-        .catch(error => {
-          console.log("Error encoutered", error);
-          if (error.code == "auth/user-not-found") {
-            this.errorText = "No account found for the email address entered.";
-          } else {
-            this.errorText = error.message;
-          }
-        });
-    }
-  }
+	name: 'Signin',
+	data: () => ({
+		email: '',
+		password: '',
+		rules: {
+			required: value => !!value || 'Required.',
+			min: v => v.length >= 6 || 'Min 6 characters',
+			emailMatch: () => 'The email and password you entered don\'t match',
+		},
+		showPw: false,
+		errorText: '',
+	}),
+	mounted() {
+		window.addEventListener('keyup', event => {
+			if (event.keyCode === 13) {
+				this.login();
+			}
+		});
+	},
+	methods: {
+    ...mapActions(['setUserAction']),
+		login() {
+			firebase
+				.auth()
+				.signInWithEmailAndPassword(this.email, this.password)
+				.then(async (credentials) => {
+          const docRef = firebase.firestore().collection('users').doc(credentials.user.uid);
+					await docRef.get().then((doc) => {
+            if (!doc.exists) {
+              throw new Error('Could not retrieve user information');
+            } else {
+              this.setUserDataAction(doc.data());
+            }
+          }).catch((err) => {
+            console.log('Error getting document', err);
+          });
+					router.push({ name: 'Home' });
+				})
+				.catch(error => {
+					console.log('Error encoutered', error);
+					if (error.code == 'auth/user-not-found') {
+						this.errorText = 'No account found for the email address entered.';
+					} else {
+						this.errorText = error.message;
+					}
+				});
+		},
+	},
 };
 </script>
