@@ -19,14 +19,15 @@
 
 <script>
 import firebase from 'firebase';
+import { mapGetters } from 'vuex';
 import UserItem from '@/components/userInfo/UserItem';
-// import ChatItem from '@/components/ChatItem';
+import ChatItem from '@/components/ChatItem';
 
 export default {
 	name: 'UserList',
 	components: {
 		UserItem,
-		// ChatItem,
+		ChatItem,
 	},
 	data() {
 		return {
@@ -39,10 +40,11 @@ export default {
 		this.getUsers();
 	},
 	methods: {
+		...mapGetters(['getUserId']),
 		getUsers() {
 			const chatRoomsRef = firebase.firestore().collection('chatrooms');
 			const chatRoomsWithUser = chatRoomsRef
-				.where('users.' + firebase.auth().currentUser.uid, '==', true);
+				.where('users.' + this.getUserId(), '==', true);
 			chatRoomsWithUser.get().then((snapshot) => {
 				if (snapshot.empty) {
 					console.log('No matching documents.');
@@ -62,7 +64,7 @@ export default {
 				.get()
 				.then((snapshot) => {
 					snapshot.forEach((doc) => {
-						if (doc.id !== firebase.auth().currentUser.uid) {
+						if (doc.id !== this.getUserId()) {
 							const docData = doc.data();
 							docData.uid = doc.id;
 							let flag = false;

@@ -2,7 +2,12 @@
   <div class="container pt-4 pb-4">
     <form @submit.prevent="createMessage">
       <v-flex>
-        <v-col cols="12" sm="6" md="12" style="width: 100%; margin: auto;">
+        <v-col
+          cols="12"
+          sm="6"
+          md="12"
+          style="width: 100%; margin: auto;"
+        >
           <v-text-field
             v-model="newMessage"
             input="text"
@@ -11,7 +16,13 @@
             label="Enter a message ..."
             fluid
           />
-          <p v-if="errorText" class="text-danger" style="color: #ff003c">{{ errorText }}</p>
+          <p
+            v-if="errorText"
+            class="text-danger"
+            style="color: #ff003c"
+          >
+            {{ errorText }}
+          </p>
         </v-col>
 
         <v-flex style="margin: auto;">
@@ -21,7 +32,9 @@
             type="submit"
             name="action"
             style="width: 100%"
-          >Submit</v-btn>
+          >
+            Submit
+          </v-btn>
         </v-flex>
       </v-flex>
     </form>
@@ -29,45 +42,46 @@
 </template>
 
 <script>
-import firebase from "firebase";
+import firebase from 'firebase';
 
 export default {
-  name: "CreateMessage",
-  props: {
-    chatRoomId: {
-      type: String,
-      default: ""
-    }
-  },
-  data() {
-    return {
-      newMessage: null,
-      errorText: null,
-      uid: this.$store.state.uid
-    };
-  },
-  methods: {
-    createMessage() {
-      if (this.newMessage) {
-        firebase
-          .firestore()
-          .collection("chatrooms")
-          .doc(this.chatRoomId)
-          .collection("messages")
-          .add({
-            uid: firebase.auth().currentUser.uid,
-            message: this.newMessage,
-            timestamp: Date.now()
-          })
-          .catch(err => {
-            console.log(err);
-          });
-        this.newMessage = null;
-        this.errorText = null;
-      } else {
-        this.errorText = "A message must be entered!";
-      }
-    }
-  }
+	name: 'CreateMessage',
+	props: {
+		chatRoomId: {
+			type: String,
+			default: '',
+		},
+	},
+	data() {
+		return {
+			newMessage: null,
+			errorText: null,
+			uid: this.$store.state.uid,
+		};
+	},
+	methods: {
+		...mapGetters(['getUserId']),
+		createMessage() {
+			if (this.newMessage) {
+				firebase
+					.firestore()
+					.collection('chatrooms')
+					.doc(this.chatRoomId)
+					.collection('messages')
+					.add({
+						uid: this.getUserId(),
+						message: this.newMessage,
+						timestamp: Date.now(),
+					})
+					.catch(err => {
+						console.log(err);
+					});
+				this.newMessage = null;
+				this.errorText = null;
+			} else {
+				this.errorText = 'A message must be entered!';
+			}
+		},
+	},
 };
 </script>

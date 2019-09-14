@@ -130,6 +130,8 @@ export default {
 	},
 	mounted() {
 		firebase.auth().onAuthStateChanged(user => {
+			console.log(user);
+			console.log(firebase.auth().currentUser);
 			if (user) {
 				this.setUserAction(user.uid);
 				const docRef = firebase
@@ -149,6 +151,7 @@ export default {
 						console.log('Error getting document', err);
 					});
 			} else {
+				console.log('User is null, logging out');
 				this.unSetUserAction();
 			}
 		});
