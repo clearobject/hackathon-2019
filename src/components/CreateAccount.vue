@@ -42,9 +42,9 @@ export default {
 			email: '',
 			password: '',
 			rules: {
-				required: (value) => !!value || 'Required.',
-				min: (v) => v.length >= 6 || 'Min 6 characters',
-				emailMatch: () => ('The email and password you entered don\'t match'),
+				required: value => !!value || 'Required.',
+				min: v => v.length >= 6 || 'Min 6 characters',
+				emailMatch: () => 'The email and password you entered don\'t match',
 			},
 			showPw: false,
 			errorText: '',
@@ -52,18 +52,15 @@ export default {
 	},
 	methods: {
 		createAccount() {
-			console.log(this.email, this.password);
-			firebase.auth().createUserWithEmailAndPassword(this.email, this.password).then(
-				(user) => {
-					console.log(user);
-					console.log('User creation is successful');
-				}
-			).catch(
-				(error) => {
-					// wrong-password
+			firebase
+				.auth()
+				.createUserWithEmailAndPassword(this.email, this.password)
+				.then(user => {
+					this.$store.state.user.uid = user.uid;
+				})
+				.catch(error => {
 					console.log('Error encoutered', error);
-				}
-			);
+				});
 		},
 	},
 };

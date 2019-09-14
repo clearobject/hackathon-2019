@@ -5,9 +5,23 @@ Vue.use(Vuex);
 
 export const store = new Vuex.Store({
 	state: {
-		title: 'Beacon of Hope',
+		title: 'Beacon',
+		uid: '',
+		age: '',
+		department: '',
+		gender: '',
+		yearsOfService: '',
+		zipCode: '',
 	},
 	mutations: {},
 	actions: {},
-	getters: {},
+	getters: {
+		title: state => state.title,
+		uid: state => state.uid,
+		age: state => state.age,
+		department: state => state.department,
+		gender: state => state.gender,
+		yearsOfService: state => state.yearsOfService,
+		zipCode: state => state.zipCode,
+	},
 });
