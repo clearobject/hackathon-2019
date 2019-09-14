@@ -5,6 +5,7 @@ const routerOptions = [
 	{ path: '/', component: 'Home' },
 	{ path: '/signin', component: 'Signin' },
 	{ path: '/signup', component: 'Signup' },
+	{ path: '/settings', component: 'Settings' },
 	{ path: '/home', component: 'Home' },
 ];
 

@@ -8,22 +8,30 @@
         <form>
           <v-layout column>
             <v-flex>
-              <v-text-field name="email" label="Email" id="email" type="email" required></v-text-field>
-            </v-flex>
-            <v-flex>
-              <v-text-field name="password" label="Password" id="password" type="password" required></v-text-field>
+              <v-text-field id="email" name="email" label="Email" type="email" required />
             </v-flex>
             <v-flex>
               <v-text-field
-                name="confirmPassword"
-                label="Confirm Password"
-                id="confirmPassword"
-                type="password"
-                required
-              ></v-text-field>
+                v-model="email"
+                :rules="[rules.required]"
+                name="input-password"
+                label="Email"
+              />
             </v-flex>
-            <v-flex class="text-xs-center" mt-5>
-              <v-btn color="primary" type="submit">Sign Up</v-btn>
+            <v-flex>
+              <v-text-field
+                v-model="password"
+                :append-icon="showPw ? 'visibility' : 'visibility_off'"
+                :rules="[rules.required, rules.min]"
+                :type="showPw ? 'text' : 'password'"
+                name="input-password"
+                label="Password"
+                hint="At least 6 characters"
+                @click:append="showPw = !showPw"
+              />
+            </v-flex>
+            <v-flex>
+              <v-btn color="primary" @click="createAccount()">Create Account</v-btn>
             </v-flex>
           </v-layout>
         </form>
@@ -33,5 +41,37 @@
 </template>
 
 <script>
-export default {};
+import firebase from "firebase";
+
+export default {
+  name: "Signup",
+  data: () => ({
+    email: "",
+    password: "",
+    rules: {
+      required: value => !!value || "Required.",
+      min: v => v.length >= 6 || "Min 6 characters",
+      emailMatch: () => "The email and password you entered don't match"
+    },
+    showPw: false,
+    errorText: ""
+  }),
+  methods: {
+    createAccount() {
+      console.log(this.email, this.password);
+      firebase
+        .auth()
+        .createUserWithEmailAndPassword(this.email, this.password)
+        .then(credentials => {
+          const uid = credentials.user.uid;
+          console.log(uid);
+          console.log("User creation is successful");
+        })
+        .catch(error => {
+          // wrong-password
+          console.log("Error encoutered", error);
+        });
+    }
+  }
+};
 </script>
