@@ -27,6 +27,10 @@
           <v-flex class="text-xs-center" mt-5 style="margin: auto;">
             <v-btn color="primary" type="submit">Sign In</v-btn>
           </v-flex>
+          <v-flex class="pt-7" style="text-align: center">
+            Don't have an account?
+            <router-link :to="{name: 'Register'}">Create one here.</router-link>
+          </v-flex>
         </v-layout>
       </v-flex>
     </v-layout>
@@ -35,6 +39,8 @@
 
 <script>
 import firebase from "firebase";
+import { mapActions } from "vuex";
+import router from "@/router/index.js";
 
 export default {
   name: "Login",
@@ -57,18 +63,14 @@ export default {
     });
   },
   methods: {
+    ...mapActions(["setUserAction", "setUserDataAction"]),
     login() {
       firebase
         .auth()
         .signInWithEmailAndPassword(this.email, this.password)
-        .then(credentials => {
-          console.log(credentials);
-          this.$store.state.uid = credentials.user.uid;
-          this.$store.state.age = credentials.user.age;
-          this.$store.state.department = credentials.user.department;
-          this.$store.state.gender = credentials.user.gender;
-          this.$store.state.yearsOfService = credentials.user.yearsOfService;
-          this.$store.state.zipCode = credentials.user.zipCode;
+        .then(async () => {
+          console.log("I shouldn't be here");
+          router.push({ name: "Home" });
         })
         .catch(error => {
           console.log("Error encoutered", error);

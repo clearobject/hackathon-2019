@@ -4,13 +4,22 @@ import Vue from 'vue';
 import Router from 'vue-router';
 
 const routerOptions = [
-	{ path: '/', component: 'Home' },
-	{ path: '/login', component: 'Login' },
-	{ path: '/register', component: 'Register' },
-	{ path: '/logout', component: 'Logout' },
-	{ path: '/settings', component: 'Settings' },
-	{ path: '/home', component: 'Home' },
-	{ path: '/profile', component: 'Profile' },
+	{ path: '/', component: 'Home', name: 'Home' },
+	{
+		path: '/login',
+		component: 'Login',
+		name: 'Login',
+	},
+	{
+		path: '/register',
+		component: 'Register',
+		name: 'Register',
+	},
+	{
+		path: '/logout',
+		component: 'Logout',
+		name: 'Logout',
+	},
 	{
 		path: '/chat',
 		component: 'Chat',

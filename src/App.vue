@@ -24,9 +24,12 @@
         v-if="primaryDrawer.type !== 'permanent'"
         @click.stop="primaryDrawer.model = !primaryDrawer.model"
       />
-      <v-toolbar-title>{{ title }}</v-toolbar-title>
+
+      <v-toolbar-title>
+        <router-link :to="{name: 'Home'}" color="#ff">{{ title }}</router-link>
+      </v-toolbar-title>
       <div class="flex-grow-1" />
-      <v-btn color="accent" :to="{ path: '/login', component: Login }" class="mx-4">
+      <v-btn color="accent" :to="{ name: 'Login' }" class="mx-4">
         <v-icon center>lock_open</v-icon>&nbsp;&nbsp;Log In
       </v-btn>
       <v-btn v-for="item in appBarItems" :key="item.title" icon :to="item.path">
@@ -53,7 +56,11 @@
 </template>
 
 <script>
+import firebase from "firebase";
+import { mapActions } from "vuex";
+
 export default {
+  name: "App",
   data: () => ({
     primaryDrawer: {
       model: null,
@@ -70,12 +77,6 @@ export default {
         path: "/profile",
         icon: "account_circle",
         style: "font-size: 22pt"
-      },
-      {
-        title: "Settings",
-        path: "/settings",
-        icon: "more_vert",
-        style: "font-size: 22pt;"
       }
     ],
     sideBarItems: [
@@ -97,8 +98,35 @@ export default {
       return this.$store.state.title;
     }
   },
-  created() {
-    window.addEventListener("load", () => (this.begin = true));
+  mounted() {
+    firebase.auth().onAuthStateChanged(user => {
+      console.log("I'm in here", user);
+      if (user) {
+        this.setUserAction(user.uid);
+        const docRef = firebase
+          .firestore()
+          .collection("users")
+          .doc(user.uid);
+        docRef
+          .get()
+          .then(doc => {
+            if (!doc.exists) {
+              throw new Error("Could not retrieve user information");
+            } else {
+              this.setUserDataAction(doc.data());
+            }
+          })
+          .catch(err => {
+            console.log("Error getting document", err);
+          });
+      } else {
+        this.unSetUserAction();
+        // No user is signed in.
+      }
+    });
+  },
+  methods: {
+    ...mapActions(["setUserAction", "unSetUserAction", "setUserDataAction"])
   }
 };
 </script>
@@ -122,5 +150,12 @@ export default {
 .fade-enter,
 .fade-leave-active {
   opacity: 0;
+}
+
+.v-toolbar__title a {
+  text-decoration: none !important;
+  color: #fff !important;
+  font-size: 18pt !important;
+  font-weight: 700 !important;
 }
 </style>
