@@ -12,11 +12,9 @@ export const store = new Vuex.Store({
 	},
 	mutations: {
 		setUser: (state, userId) => {
-			console.log(userId);
 			state.userId = userId;
 		},
-		unSetUser: (state) => {
-			console.log('Unsetting user');
+		unSetUser: state => {
 			state.userId = undefined;
 			state.userData = undefined;
 		},
@@ -26,23 +24,18 @@ export const store = new Vuex.Store({
 	},
 	actions: {
 		setUserAction: ({ commit }, userId) => {
-			console.log('Setting user ID in store');
 			commit('setUser', userId);
 		},
 		setUserDataAction: ({ commit }, userData) => {
-			console.log('Setting user data in store');
 			commit('setUserData', userData);
 		},
-		unSetUserAction: ({
-			commit,
-		},) => {
-			console.log('Unsetting user data in store');
+		unSetUserAction: ({ commit }) => {
 			commit('unSetUser');
 		},
 	},
 	getters: {
-		isLoggedIn: (state) => !!state.userId,
-		getUserData: (state) => state.userData,
+		isLoggedIn: state => !!state.userId,
+		getUserData: state => state.userData,
 	},
 	plugins: [createPersistedState()],
 });

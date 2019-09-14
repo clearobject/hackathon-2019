@@ -9,7 +9,6 @@ exports.onMessageCreate = functions.firestore
 	.document('messages/{userId}')
 	.onCreate((snap, context) => {
 		const newValue = snap.data();
-		console.log(newValue);
 		const ref = admin
 			.firestore()
 			.collection('messages')
@@ -19,8 +18,6 @@ exports.onMessageCreate = functions.firestore
 			i = 0;
 			size = snapshot.size;
 			sizeToDelete = size - 10;
-			console.log('Messages Count: ' + size);
-
 			snapshot.forEach(doc => {
 				if (i < sizeToDelete) {
 					doc.ref

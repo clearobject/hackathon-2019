@@ -25,7 +25,7 @@
             <div v-show="errorText != undefined" class="red--text">{{ errorText }}</div>
           </v-flex>
           <v-flex class="text-xs-center" mt-5 style="margin: auto;">
-            <v-btn color="primary" type="submit">Sign In</v-btn>
+            <v-btn color="primary" type="submit" @click="login()">Sign In</v-btn>
           </v-flex>
           <v-flex class="pt-7" style="text-align: center">
             Don't have an account?

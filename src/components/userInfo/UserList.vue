@@ -27,9 +27,8 @@ export default {
 	},
 	methods: {
 		getUsers() {
-			console.log('Getting all users');
-			const usersRef = firebase.firestore().collection('users');
-			usersRef
+			const chatRoomsRef = firebase.firestore().collection('chatrooms');
+			chatRoomsRef
 				.get()
 				.then(snapshot => {
 					snapshot.forEach(doc => {
@@ -39,7 +38,6 @@ export default {
 					});
 				})
 				.catch(error => {
-					console.log('Encountered an error');
 					throw new Error(error);
 				});
 		},
