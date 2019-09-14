@@ -88,7 +88,9 @@
       :inset="footer.inset"
       app
     >
-      <span class="px-4">&copy; ClearObject {{ new Date().getFullYear() }}</span>
+      <span
+        style="margin: auto; text-align: center;"
+      >&copy; ClearObject {{ new Date().getFullYear() }}</span>
     </v-footer>
   </v-app>
 </template>
@@ -101,7 +103,7 @@ export default {
 	name: 'App',
 	data: () => ({
 		primaryDrawer: {
-			model: null,
+			model: 0,
 			clipped: true,
 			floating: false,
 			mini: true,
@@ -117,17 +119,9 @@ export default {
 				style: 'font-size: 22pt',
 			},
 		],
-		sideBarItems: [
-			{
-				title: 'Chat',
-				path: '/chat',
-				icon: 'chat',
-				style: 'font-size: 26pt;',
-			},
-		],
 		primary: 'primary',
 		accent: 'accent',
-		colors: ['primary', 'accent', 'warning lighten-2', 'teal', 'orange'],
+		colors: ['primary', 'accent'],
 	}),
 	computed: {
 		title() {
@@ -156,7 +150,6 @@ export default {
 					});
 			} else {
 				this.unSetUserAction();
-				// No user is signed in.
 			}
 		});
 	},

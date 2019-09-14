@@ -6,10 +6,14 @@
   </div>
   <v-layout v-else column justify-center>
     <v-flex>
-      <div class="display-3">Please login</div>
+      <div class="display-3 my-6" style="text-align: center;">Please login</div>
     </v-flex>
-    <v-flex>
-      <v-btn @click="redirectToLogin">Go To Login</v-btn>
+    <v-flex style="margin: auto;">
+      <v-btn
+        @click="redirectToLogin"
+        color="accent"
+        style="font-size: 16pt; text-align: center;"
+      >Go To Login</v-btn>
     </v-flex>
   </v-layout>
 </template>
