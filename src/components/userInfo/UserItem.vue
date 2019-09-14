@@ -35,12 +35,15 @@ export default {
 			const userOneRef = firebase.firestore().collection('users').doc(firebase.auth().currentUser.uid);
 			const userTwoRef = firebase.firestore().collection('users').doc(this.user.uid);
 			const chatRoomRef = firebase.firestore().collection('chatrooms').doc();
-			chatRoomRef.set({
-				users: {
-					user_1: userOneRef,
-					user_2: userTwoRef,
-				},
-			});
+			const chatRoomData = {
+				users: {},
+				userRefs: {},
+			};
+			chatRoomData['users'][userOneRef.id] = true;
+			chatRoomData['users'][userTwoRef.id] = true;
+			chatRoomData['userRefs'][userOneRef.id] = userOneRef;
+			chatRoomData['userRefs'][userTwoRef.id] = userTwoRef;
+			chatRoomRef.set(chatRoomData);
 			router.push({ name: 'Chat', params: { chatRoomId: chatRoomRef.id } });
 		},
 	},
