@@ -17,42 +17,48 @@
         offset-sm3
         mt-3
       >
-        <form>
-          <v-layout column>
-            <v-flex>
-              <v-text-field
-                v-model="email"
-                name="email"
-                label="Email"
-                type="email"
-                required
-              />
-            </v-flex>
-            <v-flex>
-              <v-text-field
-                v-model="password"
-                :append-icon="showPw ? 'visibility' : 'visibility_off'"
-                :rules="[rules.required, rules.min]"
-                :type="showPw ? 'text' : 'password'"
-                name="input-password"
-                label="Password"
-                hint="At least 6 characters"
-                @click:append="showPw = !showPw"
-              />
-            </v-flex>
-            <v-flex
-              class="text-xs-center"
-              mt-5
+        <v-layout column>
+          <v-flex>
+            <v-text-field
+              v-model="email"
+              name="email"
+              label="Email"
+              type="email"
+              required
+            />
+          </v-flex>
+          <v-flex>
+            <v-text-field
+              v-model="password"
+              :append-icon="showPw ? 'visibility' : 'visibility_off'"
+              :rules="[rules.required, rules.min]"
+              :type="showPw ? 'text' : 'password'"
+              name="input-password"
+              label="Password"
+              hint="At least 6 characters"
+              @click:append="showPw = !showPw"
+            />
+          </v-flex>
+          <v-flex sm-3>
+            <div
+              v-show="errorText != undefined"
+              class="red--text"
             >
-              <v-btn
-                color="primary"
-                @click="login()"
-              >
-                Sign In
-              </v-btn>
-            </v-flex>
-          </v-layout>
-        </form>
+              {{ errorText }}
+            </div>
+          </v-flex>
+          <v-flex
+            class="text-xs-center"
+            mt-5
+          >
+            <v-btn
+              color="primary"
+              type="submit"
+            >
+              Sign In
+            </v-btn>
+          </v-flex>
+        </v-layout>
       </v-flex>
     </v-layout>
   </v-container>
@@ -74,19 +80,30 @@ export default {
 		showPw: false,
 		errorText: '',
 	}),
+	mounted() {
+		window.addEventListener('keyup', (event) => {
+			if (event.keyCode === 13) {
+				this.login();
+			}
+		});
+	},
 	methods: {
 		login() {
-			console.log(this.email, this.password);
 			firebase.auth().signInWithEmailAndPassword(this.email, this.password).then(
-				(result) => {
-					console.log(result);
-					console.log('Login successful');
+				(credentials) => {
+					const uid = credentials.user.uid;
+					console.log(uid);
 				}
 			).catch(
 				(error) => {
 					// TODO: Handle the errors smoothly
 					console.log('Error encoutered', error);
-					this.errorText = error.message;
+
+					if (error.code == 'auth/user-not-found') {
+						this.errorText = 'No account found for the email address entered.';
+					} else {
+						this.errorText = error.message;
+					}
 				}
 			);
 		},
