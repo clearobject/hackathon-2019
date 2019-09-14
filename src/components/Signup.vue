@@ -21,15 +21,6 @@
           <v-layout column>
             <v-flex>
               <v-text-field
-                id="email"
-                name="email"
-                label="Email"
-                type="email"
-                required
-              />
-            </v-flex>
-            <v-flex>
-              <v-text-field
                 v-model="email"
                 :rules="[rules.required]"
                 name="input-password"
@@ -46,6 +37,50 @@
                 label="Password"
                 hint="At least 6 characters"
                 @click:append="showPw = !showPw"
+              />
+            </v-flex>
+            <v-flex>
+              <v-select
+                v-model="departmentSelect"
+                :items="departments"
+                :rules="[rules.required]"
+                name="input-department"
+                label="Department"
+              />
+            </v-flex>
+            <v-flex>
+              <v-select
+                v-model="yearsOfServiceSelect"
+                :items="yearsOfService"
+                :rules="[rules.required]"
+                name="input-years-of-service"
+                label="Years of Service"
+              />
+            </v-flex>
+            <v-flex>
+              <v-select
+                v-model="ageSelect"
+                :items="age"
+                :rules="[rules.required]"
+                name="input-age"
+                label="Age"
+              />
+            </v-flex>
+            <v-flex>
+              <v-select
+                v-model="genderSelect"
+                :items="gender"
+                :rules="[rules.required]"
+                name="input-gender"
+                label="Gender"
+              />
+            </v-flex>
+            <v-flex>
+              <v-text-field
+                v-model="zipCode"
+                :rules="[rules.numberOnly, rules.required]"
+                name="input-zipcode"
+                label="Zipcode"
               />
             </v-flex>
             <v-flex>
@@ -71,10 +106,39 @@ export default {
 	data: () => ({
 		email: '',
 		password: '',
+		departmentSelect: '',
+		departments: [
+			'Medical',
+			'Police',
+			'Firefighter',
+		],
+		yearsOfServiceSelect: '',
+		yearsOfService: [
+			'0-3',
+			'3-6',
+			'6-10',
+			'10-20',
+			'20+',
+		],
+		ageSelect: '',
+		age: [
+			'20-30',
+			'30-40',
+			'40-50',
+			'50+',
+		],
+		genderSelect: '',
+		gender: [
+			'Male',
+			'Female',
+			'Other / Prefer not to say',
+		],
+		zipCode: undefined,
 		rules: {
 			required: (value) => !!value || 'Required.',
 			min: (v) => v.length >= 6 || 'Min 6 characters',
 			emailMatch: () => ('The email and password you entered don\'t match'),
+			numberOnly: (v) => /^[0-9\-]*$/.test(v) || 'Zipcode can only be numbers',
 		},
 		showPw: false,
 		errorText: '',
@@ -83,8 +147,20 @@ export default {
 		createAccount() {
 			console.log(this.email, this.password);
 			firebase.auth().createUserWithEmailAndPassword(this.email, this.password).then(
-				(user) => {
-					console.log(user);
+				(credentials) => {
+					const uid = credentials.user.uid;
+					console.log(credentials);
+					firebase
+						.firestore()
+						.collection('users')
+						.doc(uid)
+						.set({
+							department: this.departmentSelect,
+							yearsOfService: this.yearsOfServiceSelect,
+							age: this.ageSelect,
+							gender: this.genderSelect,
+							zipCode: this.zipCode,
+						});
 					console.log('User creation is successful');
 				}
 			).catch(

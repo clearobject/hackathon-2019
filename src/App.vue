@@ -21,11 +21,11 @@
         </v-btn>
       </v-app-bar>
 
-      <v-sheet class="overflow-y-auto">
-        <v-container>
-          <v-content>
-            <router-view />
-          </v-content>
+      <v-sheet
+        class="overflow-y-auto"
+      >
+        <v-container class="my-5">
+          <router-view />
         </v-container>
       </v-sheet>
     </v-card>
