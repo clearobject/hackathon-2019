@@ -78,9 +78,9 @@
             <v-flex>
               <v-text-field
                 v-model="zipCode"
-                :rules="[rules.numberOnly, rules.required]"
+                :rules="[rules.numberOnly]"
                 name="input-zipcode"
-                label="Zipcode"
+                label="Zipcode (optional)"
               />
             </v-flex>
             <v-flex>
@@ -138,7 +138,7 @@ export default {
 			required: (value) => !!value || 'Required.',
 			min: (v) => v.length >= 6 || 'Min 6 characters',
 			emailMatch: () => ('The email and password you entered don\'t match'),
-			numberOnly: (v) => /^[0-9\-]*$/.test(v) || 'Zipcode can only be numbers',
+			numberOnly: (v) => /^([0-9\-]*$)|(undefined)/g.test(v) || 'Zipcode can only be numbers',
 		},
 		showPw: false,
 		errorText: '',

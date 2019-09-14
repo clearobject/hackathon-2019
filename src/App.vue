@@ -1,44 +1,119 @@
 <template>
-  <v-app id="inspire">
-    <v-card class="overflow-hidden">
-      <v-app-bar
-        absolute
-        dark
-        :color="color"
-        :elevate-on-scroll="elevateOnScroll"
-        :hide-on-scroll="hideOnScroll"
-      >
-        <v-app-bar-nav-icon />
-        <v-toolbar-title>{{ appTitle }}</v-toolbar-title>
-        <div class="flex-grow-1" />
+  <v-app id="app">
+    <v-navigation-drawer
+      v-model="primaryDrawer.model"
+      :clipped="primaryDrawer.clipped"
+      :floating="primaryDrawer.floating"
+      :mini-variant="primaryDrawer.mini"
+      :permanent="primaryDrawer.type === 'permanent'"
+      :temporary="primaryDrawer.type === 'temporary'"
+      app
+      overflow
+    >
+      <v-col style="text-align: center;">
         <v-btn
-          v-for="item in items"
+          v-for="item in sideBarItems"
           :key="item.title"
           icon
           :to="item.path"
         >
-          <v-icon>{{ item.icon }}</v-icon>
+          <v-icon :style="item.style">
+            {{ item.icon }}
+          </v-icon>
         </v-btn>
-      </v-app-bar>
+      </v-col>
+    </v-navigation-drawer>
 
-      <v-sheet
-        class="overflow-y-auto"
+    <v-app-bar
+      :clipped-left="primaryDrawer.clipped"
+      app
+      color="primary"
+    >
+      <v-app-bar-nav-icon
+        v-if="primaryDrawer.type !== 'permanent'"
+        @click.stop="primaryDrawer.model = !primaryDrawer.model"
+      />
+      <v-toolbar-title>{{ title }}</v-toolbar-title>
+      <div class="flex-grow-1" />
+      <v-btn
+        v-for="item in appBarItems"
+        :key="item.title"
+        icon
+        :to="item.path"
       >
-        <v-container class="my-5">
-          <router-view />
-        </v-container>
-      </v-sheet>
-    </v-card>
+        <v-icon :style="item.style">
+          {{ item.icon }}
+        </v-icon>
+      </v-btn>
+    </v-app-bar>
+
+    <v-content>
+      <v-container fluid>
+        <v-row
+          align="center"
+          justify="center"
+        >
+          <v-col cols="10">
+            <router-view />
+          </v-col>
+        </v-row>
+      </v-container>
+    </v-content>
+
+    <v-footer
+      :inset="footer.inset"
+      app
+    >
+      <span class="px-4">&copy; ClearObject {{ new Date().getFullYear() }}</span>
+    </v-footer>
   </v-app>
 </template>
 
 <script>
 export default {
 	data: () => ({
-		items: [
-			{ title: 'Home', path: '/home', icon: 'home' },
-			{ title: 'Sign Up', path: '/signup', icon: 'face' },
-			{ title: 'Sign In', path: '/signin', icon: 'lock_open' },
+		primaryDrawer: {
+			model: null,
+			clipped: true,
+			floating: false,
+			mini: true,
+		},
+		footer: {
+			inset: false,
+		},
+		appBarItems: [
+			{
+				title: 'Sign Up',
+				path: '/signup',
+				icon: 'face',
+				style: 'font-size: 22pt;',
+			},
+			{
+				title: 'Sign In',
+				path: '/signin',
+				icon: 'lock_open',
+				style: 'font-size: 22pt;',
+			},
+			{
+				title: 'Settings',
+				path: '/settings',
+				icon: 'more_vert',
+				style: 'font-size: 22pt;',
+			},
+		],
+		sideBarItems: [
+			{
+				title: 'Home',
+				path: '/home',
+				icon: 'home',
+				style: 'font-size: 26pt; margin: 64px auto;',
+			},
+			{
+				title: 'Chat',
+				path: '/chat',
+				icon: 'chat',
+				style: 'font-size: 26pt; margin: 64px auto;',
+			},
 		],
 		elevateOnScroll: false,
 		hideOnScroll: false,
@@ -46,8 +121,8 @@ export default {
 		colors: ['primary', 'accent', 'warning lighten-2', 'teal', 'orange'],
 	}),
 	computed: {
-		appTitle() {
-			return this.$store.state.appTitle;
+		title() {
+			return this.$store.state.title;
 		},
 	},
 };
