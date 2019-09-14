@@ -5,11 +5,12 @@ import Router from 'vue-router';
 
 const routerOptions = [
 	{ path: '/', component: 'Home' },
-	{ path: '/signin', component: 'Signin' },
-	{ path: '/signup', component: 'Signup' },
-	{ path: '/signout', component: 'Signout' },
+	{ path: '/login', component: 'Login' },
+	{ path: '/register', component: 'Register' },
+	{ path: '/logout', component: 'Logout' },
 	{ path: '/settings', component: 'Settings' },
 	{ path: '/home', component: 'Home' },
+	{ path: '/profile', component: 'Profile' },
 	{
 		path: '/chat',
 		component: 'Chat',
@@ -19,7 +20,7 @@ const routerOptions = [
 			if (to.params.name) {
 				next();
 			} else {
-				next({ component: 'Signin' });
+				next({ component: 'Login' });
 			}
 		},
 	},

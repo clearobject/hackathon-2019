@@ -3,14 +3,14 @@
     <form @submit.prevent="createMessage">
       <v-col cols="12" sm="6" md="3">
         <v-text-field
+          v-model="newMessage"
           input="text"
           name="message"
           class="form-control pa-0 ma-0"
           label="Enter a message ..."
-          v-model="newMessage"
           fluid
-        ></v-text-field>
-        <p class="text-danger" style="color: #ff003c" v-if="errorText">{{ errorText }}</p>
+        />
+        <p v-if="errorText" class="text-danger" style="color: #ff003c">{{ errorText }}</p>
       </v-col>
 
       <v-flex style="margin: auto;">
@@ -44,7 +44,7 @@ export default {
       if (this.newMessage) {
         fb.collection("messages")
           .add({
-            uid: this.uid,
+            uid: this.$store.getters.uid,
             message: this.newMessage,
             timestamp: Date.now()
           })

@@ -2,7 +2,7 @@
   <v-container fluid>
     <v-layout row wrap>
       <v-flex xs12 class="text-xs-center" mt-5 style="text-align: center;">
-        <h1>Sign In</h1>
+        <h1>Login</h1>
       </v-flex>
       <v-flex xs12 sm6 offset-sm3 mt-3>
         <v-layout column>
@@ -37,7 +37,7 @@
 import firebase from "firebase";
 
 export default {
-  name: "Signin",
+  name: "Login",
   data: () => ({
     email: "",
     password: "",
@@ -62,11 +62,12 @@ export default {
         .auth()
         .signInWithEmailAndPassword(this.email, this.password)
         .then(credentials => {
+          console.log(credentials);
           this.$store.state.uid = credentials.user.uid;
           this.$store.state.age = credentials.user.age;
           this.$store.state.department = credentials.user.department;
           this.$store.state.gender = credentials.user.gender;
-          this.$store.stat.yearsOfService = credentials.user.yearsOfService;
+          this.$store.state.yearsOfService = credentials.user.yearsOfService;
           this.$store.state.zipCode = credentials.user.zipCode;
         })
         .catch(error => {

@@ -4,11 +4,11 @@
     <v-card>
       <div class="ma-10">
         <p v-if="messages.length == 0">There seems to be nothing here!</p>
-        <div class="messages" v-chat-scroll="{always: true, smooth: true}">
+        <div v-chat-scroll="{always: true, smooth: true}" class="messages">
           <div v-for="message in messages" :key="message.id">
-            <span class="text-info">[{{ message.name }}]:</span>
-            <span>{{message.message}}</span>
-            <span class="text-secondary time">{{message.timestamp}}</span>
+            <span class="text-info">[{{ message.uid }}]:</span>
+            <span>{{ message.message }}</span>
+            <span class="text-secondary time">{{ message.timestamp }}</span>
           </div>
         </div>
       </div>
@@ -26,23 +26,29 @@ import moment from "moment";
 
 export default {
   name: "Chat",
-  props: ["name"],
   components: {
     CreateMessage
   },
+  props: ["name"],
   data() {
     return {
       messages: []
     };
   },
+  computed: {
+    title() {
+      return this.$store.state.title;
+    }
+  },
   created() {
-    let ref = fb.collection("messages").orderBy("timestamp");
+    const ref = fb.collection("messages").orderBy("timestamp");
     ref.onSnapshot(snapshot => {
       snapshot.docChanges().forEach(change => {
         if (change.type == "added") {
-          let doc = change.doc;
+          const doc = change.doc;
           this.messages.push({
             id: doc.id,
+            uid: doc.data().uid,
             name: doc.data().name,
             message: doc.data().message,
             timestamp: moment(doc.data().timestamp).format("LTS")
@@ -50,11 +56,6 @@ export default {
         }
       });
     });
-  },
-  computed: {
-    title() {
-      return this.$store.state.title;
-    }
   }
 };
 </script>

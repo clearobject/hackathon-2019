@@ -26,8 +26,11 @@
       />
       <v-toolbar-title>{{ title }}</v-toolbar-title>
       <div class="flex-grow-1" />
-      <v-btn color="accent" :to="{ path: '/login', component: Login }" class="mx-4">
-        <v-icon center>lock_open</v-icon>&nbsp;&nbsp;Log In
+      <v-btn color="accent">
+        <v-icon center path="/register">{{ lock_open }}</v-icon>Register
+      </v-btn>
+      <v-btn color="accent">
+        <v-icon center path="/login">{{ lock_open }}</v-icon>Log In
       </v-btn>
       <v-btn v-for="item in appBarItems" :key="item.title" icon :to="item.path">
         <v-icon :style="item.style">{{ item.icon }}</v-icon>
@@ -60,7 +63,7 @@ export default {
       mini: true
     },
     footer: {
-      inset: true
+      inset: false
     },
     appBarItems: [
       {
@@ -86,8 +89,7 @@ export default {
     ],
     elevateOnScroll: false,
     hideOnScroll: false,
-    primary: "primary",
-    accent: "accent",
+    color: "primary",
     colors: ["primary", "accent", "warning lighten-2", "teal", "orange"]
   }),
   computed: {

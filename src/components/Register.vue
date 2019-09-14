@@ -2,7 +2,7 @@
   <v-container fluid>
     <v-layout row wrap>
       <v-flex xs12 class="text-xs-center" mt-5 style="text-align: center;">
-        <h1>Sign Up</h1>
+        <h1>Register</h1>
       </v-flex>
       <v-flex xs12 sm6 offset-sm3 mt-3>
         <form>
@@ -85,7 +85,7 @@
 import firebase from "firebase";
 
 export default {
-  name: "Signup",
+  name: "Register",
   data: () => ({
     email: "",
     password: "",
