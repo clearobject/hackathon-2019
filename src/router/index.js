@@ -6,19 +6,19 @@ import Router from 'vue-router';
 const routerOptions = [
 	{ path: '/', component: 'Home', name: 'Home' },
 	{
-	  path: '/login',
-	  component: 'Login',
-	  name: 'Login'
+		path: '/login',
+		component: 'Login',
+		name: 'Login',
 	},
 	{
-	  path: '/register',
-	  component: 'Register',
-	  name: 'Register'
+		path: '/register',
+		component: 'Register',
+		name: 'Register',
 	},
 	{
-	  path: '/logout',
-	  component: 'Logout',
-	  name: 'Logout'
+		path: '/logout',
+		component: 'Logout',
+		name: 'Logout',
 	},
 	{
 		path: '/chat',

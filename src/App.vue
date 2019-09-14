@@ -35,7 +35,15 @@
         v-if="primaryDrawer.type !== 'permanent'"
         @click.stop="primaryDrawer.model = !primaryDrawer.model"
       />
-      <v-toolbar-title>{{ title }}</v-toolbar-title>
+
+      <v-toolbar-title>
+        <router-link
+          :to="{name: 'Home'}"
+          color="#ff"
+        >
+          {{ title }}
+        </router-link>
+      </v-toolbar-title>
       <div class="flex-grow-1" />
       <v-btn
         v-if="!isLoggedIn"
@@ -185,8 +193,16 @@ export default {
   transition-property: opacity;
   transition-timing-function: ease;
 }
+
 .fade-enter,
 .fade-leave-active {
   opacity: 0;
+}
+
+.v-toolbar__title a {
+  text-decoration: none !important;
+  color: #fff !important;
+  font-size: 18pt !important;
+  font-weight: 700 !important;
 }
 </style>

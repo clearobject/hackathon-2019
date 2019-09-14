@@ -6,20 +6,18 @@
 
 <script>
 export default {
-	name: 'UserItem',
-	props: {
-		user: {
-			type: Object,
-			default() {
-				return { username: 'hello', uid: 1234 };
-			},
-			name: 'user',
-		},
-	},
-	data() {
-		return {
-
-		};
-	},
+  name: "UserItem",
+  props: {
+    user: {
+      type: Object,
+      default() {
+        return { username: "hello", uid: 1234 };
+      },
+      name: "user"
+    }
+  },
+  data() {
+    return {};
+  }
 };
 </script>
