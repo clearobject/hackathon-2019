@@ -1,26 +1,40 @@
 <template>
   <v-app>
     <v-app-bar app>
-      <v-toolbar-title class="headline text-uppercase">
-        <span>Vuetify</span>
-        <span class="font-weight-light">MATERIAL DESIGN</span>
-      </v-toolbar-title>
-      <v-spacer />
+      <v-layout row>
+        <v-toolbar-title class="headline text-uppercase">
+          <span>Beacon</span>
+        </v-toolbar-title>
+        <div class="flex-grow-1" />
+        <v-toolbar-items>
+          <v-btn
+            text
+            @click="router.push('login')"
+          >
+            Login
+          </v-btn>
+        </v-toolbar-items>
+        <v-spacer />
+      </v-layout>
     </v-app-bar>
 
     <v-content>
-      <HelloWorld />
+      <!-- TODO: Remove this login and replace with routerview -->
+      <Login />
+      <CreateAccount />
     </v-content>
   </v-app>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld';
+import Login from './components/Login';
+import CreateAccount from './components/CreateAccount';
 
 export default {
 	name: 'App',
 	components: {
-		HelloWorld,
+		Login,
+		CreateAccount,
 	},
 };
 </script>
