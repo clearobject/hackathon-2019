@@ -2,7 +2,7 @@ import Vue from 'vue';
 import Router from 'vue-router';
 
 const routerOptions = [
-	{ path: '/', component: 'Landing' },
+	{ path: '/', component: 'Home' },
 	{ path: '/signin', component: 'Signin' },
 	{ path: '/signup', component: 'Signup' },
 	{ path: '/home', component: 'Home' },
