@@ -24,8 +24,16 @@
               <v-text-field
                 v-model="email"
                 :rules="[rules.required]"
-                name="input-password"
+                name="input-email"
                 label="Email"
+              />
+            </v-flex>
+            <v-flex>
+              <v-text-field
+                v-model="username"
+                :rules="[rules.required]"
+                name="input-username"
+                label="Username"
               />
             </v-flex>
             <v-flex>
@@ -175,6 +183,7 @@ export default {
 	name: 'Signup',
 	data: () => ({
 		email: '',
+		username: '',
 		password: '',
 		departmentSelect: '',
 		departments: ['Medical', 'Police', 'Firefighter'],
@@ -205,6 +214,7 @@ export default {
 				.then(credentials => {
 					const uid = credentials.user.uid;
 					const dataSet = {
+						username: this.username,
 						department: this.departmentSelect,
 						yearsOfService: this.yearsOfServiceSelect,
 						age: this.ageSelect,
