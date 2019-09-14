@@ -10,7 +10,7 @@
         mt-5
         style="text-align: center;"
       >
-        <h1>Sign In</h1>
+        <h1>Login</h1>
       </v-flex>
       <v-flex
         xs12
@@ -72,7 +72,7 @@ import { mapActions } from 'vuex';
 import router from '@/router/index.js';
 
 export default {
-	name: 'Signin',
+	name: 'Login',
 	data: () => ({
 		email: '',
 		password: '',

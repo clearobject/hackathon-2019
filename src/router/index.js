@@ -11,14 +11,14 @@ const routerOptions = [
 	  name: 'Signin'
 	},
 	{
-	  path: '/signup',
-	  component: 'Signup',
-	  name: 'Signup'
+	  path: '/register',
+	  component: 'Register',
+	  name: 'Register'
 	},
 	{
-	  path: '/signout',
-	  component: 'Signout',
-	  name: 'Signout'
+	  path: '/logout',
+	  component: 'Logout',
+	  name: 'Logout'
 	},
 	{
 	  path: '/settings',
@@ -34,7 +34,7 @@ const routerOptions = [
 			if (to.params.name) {
 				next();
 			} else {
-				next({ component: 'Signin' });
+				next({ component: 'Login' });
 			}
 		},
 	},

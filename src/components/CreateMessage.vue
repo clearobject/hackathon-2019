@@ -56,7 +56,7 @@ export default {
 			if (this.newMessage) {
 				fb.collection('messages')
 					.add({
-						uid: this.uid,
+						uid: this.$store.getters.uid,
 						message: this.newMessage,
 						timestamp: Date.now(),
 					})

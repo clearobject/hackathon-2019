@@ -1,16 +1,10 @@
 <template>
   <v-container fluid>
-    <v-layout
-      row
-      wrap
-    >
-      <v-flex
-        xs12
-        class="text-xs-center"
-        mt-5
-        style="text-align: center;"
-      >
-        <h1>Sign Up</h1>
+    <v-layout row
+wrap>
+      <v-flex xs12
+class="text-xs-center" mt-5 style="text-align: center;">
+        <h1>Register</h1>
       </v-flex>
       <v-flex
         xs12
@@ -180,7 +174,7 @@ import firebase from 'firebase';
 import router from '@/router/index.js';
 
 export default {
-	name: 'Signup',
+	name: 'Register',
 	data: () => ({
 		email: '',
 		username: '',

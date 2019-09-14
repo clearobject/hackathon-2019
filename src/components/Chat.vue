@@ -16,7 +16,7 @@
             v-for="message in messages"
             :key="message.id"
           >
-            <span class="text-info">[{{ message.name }}]:</span>
+            <span class="text-info">[{{ message.uid }}]:</span>
             <span>{{ message.message }}</span>
             <span class="text-secondary time">{{ message.timestamp }}</span>
           </div>
@@ -39,13 +39,7 @@ export default {
 	components: {
 		CreateMessage,
 	},
-	props: {
-		name: {
-			name: 'name',
-			type: String,
-			default: '',
-		},
-	},
+	props: ['name'],
 	data() {
 		return {
 			messages: [],
@@ -64,6 +58,7 @@ export default {
 					const doc = change.doc;
 					this.messages.push({
 						id: doc.id,
+						uid: doc.data().uid,
 						name: doc.data().name,
 						message: doc.data().message,
 						timestamp: moment(doc.data().timestamp).format('LTS'),

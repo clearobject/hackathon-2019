@@ -9,8 +9,10 @@
       :temporary="primaryDrawer.type === 'temporary'"
       app
       overflow
+      flat
+      collapse
     >
-      <v-col style="text-align: center;;">
+      <v-col style="text-align: center;">
         <v-btn
           v-for="item in sideBarItems"
           :key="item.title"
@@ -22,6 +24,8 @@
           </v-icon>
         </v-btn>
       </v-col>
+      </v-btn>
+      </v-col></v-btn>
     </v-navigation-drawer>
 
     <v-app-bar
@@ -36,6 +40,15 @@
       <v-toolbar-title>{{ title }}</v-toolbar-title>
       <div class="flex-grow-1" />
       <v-btn
+        color="accent"
+        :to="{ path: '/login', component: Login }"
+        class="mx-4"
+      >
+        <v-icon center>
+          lock_open
+        </v-icon>&nbsp;&nbsp;Log In
+      </v-btn>
+      <v-btn
         v-for="item in appBarItems"
         :key="item.title"
         icon
@@ -44,6 +57,7 @@
         <v-icon :style="item.style">
           {{ item.icon }}
         </v-icon>
+      </v-btn>
       </v-btn>
     </v-app-bar>
 
@@ -74,6 +88,7 @@ import firebase from 'firebase';
 import { mapActions } from 'vuex';
 
 export default {
+	name: 'App',
 	data: () => ({
 		primaryDrawer: {
 			model: null,
@@ -82,26 +97,14 @@ export default {
 			mini: true,
 		},
 		footer: {
-			inset: false,
+			inset: true,
 		},
 		appBarItems: [
 			{
-				title: 'Sign Up',
-				path: '/signup',
-				icon: 'face',
-				style: 'font-size: 22pt;',
-			},
-			{
-				title: 'Sign In',
-				path: '/signin',
-				icon: 'lock_open',
-				style: 'font-size: 22pt;',
-			},
-			{
-				title: 'Sign Out',
-				path: '/signout',
-				icon: 'close',
-				style: 'font-size: 22pt;',
+				title: 'Profile',
+				path: '/profile',
+				icon: 'account_circle',
+				style: 'font-size: 22pt',
 			},
 			{
 				title: 'Settings',
@@ -112,12 +115,6 @@ export default {
 		],
 		sideBarItems: [
 			{
-				title: 'Home',
-				path: '/',
-				icon: 'home',
-				style: 'font-size: 26pt;',
-			},
-			{
 				title: 'Chat',
 				path: '/chat',
 				icon: 'chat',
@@ -126,7 +123,8 @@ export default {
 		],
 		elevateOnScroll: false,
 		hideOnScroll: false,
-		color: 'primary',
+		primary: 'primary',
+		accent: 'accent',
 		colors: ['primary', 'accent', 'warning lighten-2', 'teal', 'orange'],
 	}),
 	computed: {
@@ -158,6 +156,8 @@ export default {
 	methods: {
 		...mapActions(['setUserAction', 'unSetUserAction', 'setUserDataAction']),
 	},
+
+
 };
 </script>
 
