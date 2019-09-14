@@ -2,6 +2,10 @@ import Vue from 'vue';
 import firebase from 'firebase';
 import App from './App.vue';
 import vuetify from './plugins/vuetify';
+import router from './router';
+import Vuetify from 'vuetify';
+import 'vuetify/dist/vuetify.min.css';
+import { store } from './store';
 
 // TODO: Replace the following with your app's Firebase project configuration
 const firebaseConfig = {
@@ -17,10 +21,11 @@ const firebaseConfig = {
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
 
-
 Vue.config.productionTip = false;
 
 new Vue({
 	vuetify,
+	router,
+	store,
 	render: h => h(App),
 }).$mount('#app');
